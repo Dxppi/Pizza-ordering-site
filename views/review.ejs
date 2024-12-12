@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Оставить отзыв</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <h1>Оставить отзыв</h1>
+    <p>Вы оставляете отзыв на заказ: <strong><%= pizza_name %></strong>, клиент: <strong><%= customer_name %></strong></p>
+    <form action="/review" method="post">
+      <input type="hidden" name="order_id" value="<%= order_id %>" />
+      <br />
+      <label>
+        Ваш отзыв:
+        <textarea name="review" required></textarea>
+      </label>
+      <br />
+      <button type="submit">Отправить</button>
+    </form>
+  </body>
+</html>

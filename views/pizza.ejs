@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pizza.name %></title>
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+    <h1><%= pizza.name %></h1>
+    <img class="form-image" src="<%= pizza.image %>" alt="<%= pizza.name %>" style="width: 400px; height: 400px; margin-bottom: 20px;" />
+    
+    <p>Базовая стоимость: <span class="total-price"><%= pizza.price %></span> руб.</p>
+    <form action="/checkout" method="post">
+        <input type="hidden" name="pizza_id" value="<%= pizza.id %>" />
+        <h2>Добавьте ингредиенты:</h2>
+        <% ingredients.forEach(ing => { %>
+            <div class="ingredient">
+                <label>
+                    <input type="checkbox" name="ingredients" value="<%= ing.id %>" data-price="<%= ing.price %>" />
+                    <%= ing.name %> (+<%= ing.price %> руб.)
+                </label>
+            </div>
+        <% }); %>
+        <h3>Итоговая стоимость: <span id="totalPrice" class="total-price"><%= pizza.price %></span> руб.</h3>
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="address">Адрес:</label>
+        <textarea id="address" name="address" rows="3" required></textarea>
+
+        <label for="phone">Телефон:</label>
+        <input type="tel" id="phone" name="phone" required />
+
+        <button type="submit">Оплатить</button>
+    </form>
+
+    <script>
+        const basePrice = Number("<%= pizza.price %>");
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const totalPriceElement = document.getElementById('totalPrice');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                let total = basePrice;
+                checkboxes.forEach(cb => {
+                    if (cb.checked) total += parseInt(cb.dataset.price);
+                });
+                totalPriceElement.textContent = total;
+            });
+        });
+    </script>
+</body>
+</html>

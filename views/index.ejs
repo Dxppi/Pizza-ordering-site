@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ пиццы</title>
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+    <h1>Выберите вашу пиццу</h1>
+    <div class="pizza-container">
+        <% pizzas.forEach(pizza => { %>
+            <div class="pizza-card">
+                <img src="<%= pizza.image %>" onclick="window.location.href='/pizza/<%= pizza.id %>'" />
+                <div class="pizza-info">
+                    <p class="pizza-name"><%= pizza.name %></p>
+                    <p class="pizza-price"><%= pizza.price %> руб.</p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+    <h2>Отзывы</h2>
+    <div class="reviews-container">
+        <% reviews.forEach(review => { %>
+            <div class="review">
+                <p><strong>Клиент:</strong> <%= review.customer_name %></p>
+                <p><strong>Пицца:</strong> <%= review.pizza_name %></p>
+                <p><strong>Отзыв:</strong> <%= review.feedback %></p>
+            </div>
+            <hr />
+        <% }); %>
+    </div>
+</body>
+</html>
